@@ -36,6 +36,7 @@ Plant-Disease-Detection-System/
 ## 🖼️ Sample Output
 
 ![Plant Disease Detection Output](output-plant-disease-detection.png)
+![plant Disease Detection Final output](plant-output.jpg).
 
 ## 🧠 Model Overview
 
