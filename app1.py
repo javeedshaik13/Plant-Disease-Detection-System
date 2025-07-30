@@ -3,7 +3,6 @@ import numpy as np
 import tensorflow as tf
 from PIL import Image
 
-# Background
 background_image_url = "https://w0.peakpx.com/wallpaper/62/257/HD-wallpaper-farm-house-grass-sunset-farm-skies-tree-nature-fields-sunrise-road.jpg"
 st.markdown(
     f"""
@@ -26,28 +25,24 @@ class_names = [
     'Potato___Early_blight'
 ]
 
-
-# Title
 st.title("🌿 Plant Disease Detector")
 
 if "uploaded_files" not in st.session_state:
     st.session_state.uploaded_files = []
 
-# Load TensorFlow model
 @st.cache_resource
 def load_model():
     return tf.keras.models.load_model("potatoes.h5")
 
 model = load_model()
 
-# Camera input
 show_camera = st.button("Use Camera")
 if show_camera:
     camera_img = st.camera_input("Take a photo of a leaf")
     if camera_img:
         st.session_state.uploaded_files.append(camera_img)
 
-# File uploader
+
 uploaded_files = st.file_uploader(
     "Or upload leaf images", type=["jpg", "png"], accept_multiple_files=True
 )
@@ -56,7 +51,7 @@ if uploaded_files:
         if file not in st.session_state.uploaded_files:
             st.session_state.uploaded_files.append(file)
 
-# Process each image
+
 remove_indices = []
 for idx, img in enumerate(st.session_state.uploaded_files):
     st.write(f"Leaf {idx+1}:")
@@ -76,7 +71,7 @@ for idx, img in enumerate(st.session_state.uploaded_files):
     if st.button(f"Remove Leaf {idx+1}", key=f"remove_{idx}"):
         remove_indices.append(idx)
 
-# Remove logic
+
 if remove_indices:
     for idx in sorted(remove_indices, reverse=True):
         st.session_state.uploaded_files.pop(idx)
