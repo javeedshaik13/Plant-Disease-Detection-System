@@ -4,7 +4,6 @@ import torch.nn as nn
 import numpy as np
 from PIL import Image
 
-# ✅ Set background image with overlay for readability
 background_image_url = "https://w0.peakpx.com/wallpaper/62/257/HD-wallpaper-farm-house-grass-sunset-farm-skies-tree-nature-fields-sunrise-road.jpg"
 st.markdown(
     f"""
@@ -24,7 +23,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# ✅ Define model class (ResNet9)
 class ResNet9(nn.Module):
     def __init__(self, in_channels, num_classes):
         super().__init__()
@@ -95,7 +93,6 @@ class ResNet9(nn.Module):
         out = self.classifier(out)
         return out
 
-# ✅ Class labels
 class_names = [
     'Tomato___Late_blight', 'Tomato___healthy', 'Grape___healthy', 'Orange___Haunglongbing_(Citrus_greening)',
     'Soybean___healthy', 'Squash___Powdery_mildew', 'Potato___healthy', 'Corn_(maize)___Northern_Leaf_Blight',
@@ -110,33 +107,29 @@ class_names = [
     'Pepper,_bell___Bacterial_spot', 'Corn_(maize)___healthy'
 ]
 
-# ✅ Title
 st.title("🌿 Plant Disease Detector")
 
-# ✅ Manage uploaded files
 if "uploaded_files" not in st.session_state:
     st.session_state.uploaded_files = []
 
-# ✅ Load trained model
 model = ResNet9(3, len(class_names))
 model.load_state_dict(torch.load("plant-disease-model.pth", map_location=torch.device('cpu')))
 model.eval()
 
-# ✅ Camera capture
+
 show_camera = st.button("Use Camera")
 if show_camera:
     camera_img = st.camera_input("Take a photo of a leaf")
     if camera_img:
         st.session_state.uploaded_files.append(camera_img)
 
-# ✅ File uploader
+
 uploaded_files = st.file_uploader("Or upload leaf images", type=["jpg", "png"], accept_multiple_files=True)
 if uploaded_files:
     for file in uploaded_files:
         if file not in st.session_state.uploaded_files:
             st.session_state.uploaded_files.append(file)
 
-# ✅ Prediction + removal
 remove_indices = []
 for idx, img in enumerate(st.session_state.uploaded_files):
     st.write(f"Leaf {idx+1}:")
