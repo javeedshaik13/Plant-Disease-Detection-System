@@ -12,7 +12,8 @@ The **Plant Disease Detection System** is a deep learning-based web application 
 - ⚙️ **Frameworks**: Built using **TensorFlow**, **PyTorch**, and **Streamlit**.
 - 📊 **Dataset Support**:
   - [PlantVillage Dataset](https://www.kaggle.com/datasets/emmarex/plantdisease)
-  - Custom "NewVillage" Dataset
+  - [NewPlantDiseases Dataset]
+  .(https://www.kaggle.com/datasets/vipoooool/new-plant-diseases-dataset).
 
 ## 🧪 Directory Structure
 
